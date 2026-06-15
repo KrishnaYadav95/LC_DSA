@@ -12,20 +12,16 @@ class Solution {
     public ListNode deleteMiddle(ListNode head) {
         if(head==null) return null;
         if(head.next==null) return null;
-        int countlength=0;
-        ListNode temp= head;
-        while(temp!=null){
-            countlength+=1;
-            temp=temp.next;
+        ListNode slow= head;
+        ListNode fast= head;
+         fast=fast.next.next;
+        while(fast!=null && fast.next!=null){
+         slow=slow.next;
+         fast=fast.next.next;
         }
-        int n=countlength/2;
-        temp=head;
-        while(n--!=1){
-            temp=temp.next;
-        }
-        temp.next=temp.next.next;
+        slow.next=slow.next.next;
         return head;
-    }   
+    }
 }
 
 // Synced seamlessly with LeetHub Pro
