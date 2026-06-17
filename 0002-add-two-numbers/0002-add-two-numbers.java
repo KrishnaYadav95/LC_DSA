@@ -1,38 +1,34 @@
-import java.math.BigInteger;
-
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
 class Solution {
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-        String s1 = "";
-        String s2 = "";
-
-        while (l1 != null) {
-            s1 += l1.val;
-            l1 = l1.next;
+        
+        ListNode curr= new ListNode(0);
+        ListNode temp= curr;
+        int carry=0;
+        while(l1!=null || l2!=null|| carry!=0){
+            int sum=carry;
+            if(l1!=null){
+                sum+=l1.val;
+                l1=l1.next;
+            }
+            if(l2!=null){
+                sum+=l2.val;
+                l2=l2.next;
+            }
+             carry=sum/10;
+             curr.next= new ListNode(sum%10);
+             curr=curr.next;
         }
-        while (l2 != null) {
-            s2 += l2.val;
-            l2 = l2.next;
-        }
-//342
-//465
-
-//708
-        s1 = new StringBuilder(s1).reverse().toString();
-        s2 = new StringBuilder(s2).reverse().toString();
-
-        BigInteger n1 = new BigInteger(s1);
-        BigInteger n2 = new BigInteger(s2);
-        BigInteger sum = n1.add(n2);
-
-        String rev = new StringBuilder(String.valueOf(sum)).reverse().toString();
-
-        ListNode root = new ListNode(0);
-        ListNode dummy = root;
-        for (int i = 0; i < rev.length(); i++) {
-            dummy.next = new ListNode(rev.charAt(i) - '0');
-            dummy = dummy.next;
-        }
-        return root.next;
+        return temp.next;
     }
 }
 
