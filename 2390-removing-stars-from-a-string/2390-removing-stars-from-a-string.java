@@ -8,17 +8,14 @@ class Solution {
                 st.pop();
                 st.pop();
             }
-           
         }
-        String str="";
-        while(!st.isEmpty()){
-            str+=st.pop();
+        StringBuilder sb= new StringBuilder();
+        int size=st.size();
+        for(int i=0;i<size;i++){
+            sb.append(st.pop());
         }
-        String rev="";
-        for(int i=str.length()-1 ; i>=0;i--){
-            rev+=str.charAt(i);
-        }
-        return rev;
+      
+        return sb.reverse().toString();
     }
 }
 
