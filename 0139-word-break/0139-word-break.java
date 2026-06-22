@@ -1,15 +1,14 @@
 class Solution {
     public boolean wordBreak(String s, List<String> wordDict) {
-        Set<String> set = new HashSet<>(wordDict);
-        int n= s.length();
-        boolean [] dp = new boolean[n+1];
-        dp[0] = true ;//empty string is alwats valid
-        for(int i=0;i<n;i++){
-            if (!dp[i]) continue;
-            for(int j=i+1 ; j<=n;j++){
-                if(set.contains(s.substring(i , j))){
-                    dp[j]=true;
-                }
+        int n = s.length();
+        HashSet<String> set= new HashSet<>(wordDict);
+        boolean [] dp = new boolean[s.length()+1];
+        dp[0]=true; // empty string is always valid
+        for(int i=0;i<s.length();i++){
+            if(dp[i]==false) continue;
+            for(int j=i+1; j<=s.length();j++){
+             if(set.contains(s.substring(i , j))) 
+             dp[j]=true;
             }
         }
         return dp[n];
