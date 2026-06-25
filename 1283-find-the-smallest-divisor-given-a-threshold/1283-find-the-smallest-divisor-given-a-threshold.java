@@ -21,7 +21,8 @@ class Solution {
 boolean isLesserThanThreshold(int mid , int[] nums , int threshold){
     int sum=0;
     for(int i=0;i<nums.length;i++){
-        sum+= (int)Math.ceil((double)nums[i]/mid);
+      //  sum+= (int)Math.ceil((double)nums[i]/mid);
+        sum += (nums[i] + mid - 1) / mid;
         if(sum>threshold) return false;
     }
     return sum<=threshold;
