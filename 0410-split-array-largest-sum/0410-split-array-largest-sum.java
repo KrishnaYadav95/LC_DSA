@@ -1,13 +1,12 @@
 class Solution {
     public int splitArray(int[] nums, int k) {
         int low=0;
-        for(int i: nums){
-            low=Math.max(low , i);
-        }
         int high=0;
         for(int i: nums){
-            high+=i;
+            low=Math.max(low , i);
+               high+=i;
         }
+        
         while(low<=high){
             int mid=low+(high-low)/2;
             if(isPossible(mid , nums , k)){
