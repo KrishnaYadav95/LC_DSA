@@ -1,13 +1,18 @@
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
-          HashSet<Integer> set = new HashSet<>();
-       for(int i=0;i<matrix.length ; i++){
-        for(int j=0 ; j<matrix[0].length ; j++ ){
-        set.add(matrix[i][j]);
-       }
-       }
-       if(set.contains(target)) return true;
-       return false;
+         int n= matrix.length;
+         int m = matrix[0].length;
+         int low=0;
+         int high= n*m-1;
+         while(low<=high){
+            int mid= low+(high-low) /2;
+            int row= mid/m;
+            int col= mid%m;
+            if(matrix[row][col]==target) return true;
+            else if(matrix[row][col]>target) high=mid-1;
+            else low=mid+1;
+         }
+         return false;
     }
 }
 
