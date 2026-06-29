@@ -10,6 +10,10 @@
  */
 class Solution {
     public int pairSum(ListNode head) {
+        // This solution stores all node values in an ArrayList and then uses a two-pointer approach.
+        // Time Complexity: O(N) where N is the number of nodes (one pass to collect values + one pass to compute sums).
+        // Space Complexity: O(N) due to the extra list storing node values.
+      
         ArrayList<Integer> list= new ArrayList<>();
         ListNode temp= head;
         while(temp!=null){
