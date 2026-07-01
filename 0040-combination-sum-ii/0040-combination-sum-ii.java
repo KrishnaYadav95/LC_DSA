@@ -1,34 +1,37 @@
 class Solution {
     public List<List<Integer>> combinationSum2(int[] candidates, int target) {
-        Arrays.sort(candidates);
-        boolean[] flag= new boolean[candidates.length];
-        List<List<Integer>> ans = new ArrayList<>();
+    Arrays.sort(candidates);
         List<Integer> list= new ArrayList<>();
-        sum(candidates, 0 , target , list, ans );
+        List<List<Integer>> ans= new ArrayList<>();
+        combination(candidates , 0 , list , ans , target , 0);
         return ans;
     }
-    void sum(int[] nums ,int idx , int target , List<Integer> list , List<List<Integer>> ans ){
-        if(target==0){
+    void combination(int[] nums , int idx , List<Integer> list , List<List<Integer>> ans , int target , int sum){
+
+        if(sum==target){
             ans.add(new ArrayList<>(list));
             return ;
         }
-        if(idx==nums.length){
+     
+        if(idx >=nums.length){
             return ;
         }
-        
-       for(int i=idx;i<nums.length;i++){
-         if(i>idx && nums[i]==nums[i-1]){
-            continue;
+        if(sum > target){
+            return ;
         }
-            if(nums[i] > target)
-           break;
-
-        list.add(nums[i]);
-        sum(nums , i+1,target-nums[i] , list , ans );
+    
+        // pick -> unique picks allowed
+        list.add(nums[idx]);
+        sum+=nums[idx];
+        combination(nums , idx+1 , list, ans , target , sum);
         list.remove(list.size()-1);
-       
-       
-       }
+        sum-=nums[idx];
+        
+        // to avoid duplicates 
+        while(idx+1<nums.length && nums[idx]==nums[idx+1]) idx++;
+
+        // dont pick
+        combination(nums , idx+1 , list, ans , target , sum);
     }
 }
 
