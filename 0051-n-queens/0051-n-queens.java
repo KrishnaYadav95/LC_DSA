@@ -1,43 +1,49 @@
 class Solution {
     public List<List<String>> solveNQueens(int n) {
+        boolean[] column = new boolean[n];
+        boolean[] ndiag= new boolean[2*n-1];
+        boolean[] rdiag = new boolean[2*n-1];
         boolean[][] board = new boolean[n][n];
-          boolean[] cols = new boolean[n];
-        boolean[] ndiag = new boolean[2 * n - 1];
-        boolean[] rdiag = new boolean[2 * n - 1];
+
         List<List<String>> ans= new ArrayList<>();
-        queens(board , 0 , cols, ndiag , rdiag , ans);
+        queen(column , 0 , rdiag , ndiag , board , ans);
         return ans;
+
     }
-    List<String> buildBoard(boolean[][] board){
-        ArrayList<String> list= new ArrayList<>();
-        for(int i=0;i<board.length  ;i++){
-            StringBuilder sb = new StringBuilder();
-            for(int j=0;j<board[0].length; j++){
-                if(board[i][j]) sb.append("Q");
-                else sb.append(".");
-            }
-            list.add(sb.toString());
+
+    List<String> constructBoard(boolean[][] board){
+       List<String> list= new ArrayList<>();
+       for(int i=0; i< board.length; i++){
+        StringBuilder sb= new StringBuilder();
+        for(int j=0;j<board[0].length ; j++){
+            if(board[i][j]) sb.append("Q");
+            else sb.append(".");
         }
-        return list;
+        list.add(sb.toString());
+       }
+       return list;
     }
-    void queens(boolean[][] board , int row , boolean[] cols , boolean[] ndiag , boolean[] rdiag , List<List<String>> ans){
+
+    void queen(boolean[] column , int row , boolean[] rdiag , boolean[] ndiag , boolean[][] board , List<List<String>> ans){
         if(row==board.length){
-            ans.add(buildBoard(board));
-            return;
+            ans.add( new ArrayList<>(constructBoard(board)));
+            return ;
         }
+
         for(int col=0;col<board.length;col++){
-            if(cols[col]==false && ndiag[row+col]==false && rdiag[row-col+board.length-1]==false){
+            if(column[col]==false && rdiag[row-col+ board.length-1]==false && ndiag[row+col]==false){
+                column[col]=true;
+                rdiag[row-col+board.length-1]=true;
+                ndiag[row+col]=true;
                 board[row][col]=true;
-                cols[col]=true;
-                ndiag[ row+col]=true;
-                rdiag[row-col+ board.length-1]=true;
-            
-            queens(board , row+1 , cols , ndiag , rdiag , ans);
-            board[row][col]=false;
-                cols[col]=false;
-                ndiag[row+col]=false;
+
+                queen(column , row+1 , rdiag , ndiag , board, ans);
+
+                column[col]=false;
                 rdiag[row-col+board.length-1]=false;
-        }
+                ndiag[row+col]=false;
+                board[row][col]=false;
+            }
         }
     }
 }
