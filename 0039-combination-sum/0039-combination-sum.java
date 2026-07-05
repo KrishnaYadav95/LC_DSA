@@ -1,27 +1,32 @@
 class Solution {
-    public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> ans= new ArrayList<>();
-        List<Integer> list= new ArrayList<>();
-         sum(candidates, ans , list ,0 , target );
-         return ans;
+    public List<List<Integer>> combinationSum(int[] nums, int target) {
+    List<Integer> list= new ArrayList<>();
+    List<List<Integer>> ans= new ArrayList<>();
+    combination(nums, 0 , target,0 ,list, ans);
+    return ans;
     }
-void sum(int[] arr , List<List<Integer>> ans , List<Integer> list ,int idx , int target){
-        
-         if(target==0){
-            ans.add( new ArrayList<>(list));
-            return;
+    void combination(int[] nums , int idx , int target , int sum , List<Integer> list , List<List<Integer>> ans){
+
+        // base case
+        if(sum==target){
+            ans.add(new ArrayList<>(list));
+            return ; 
         }
-        if(idx==arr.length || target<0){
-            return ;
+        if(idx>=nums.length|| sum>target){
+            return ; 
         }
-       
-        list.add(arr[idx]);
-        sum(arr , ans ,list , idx ,target-arr[idx]);
+
+
+        // pick it 
+        list.add(nums[idx]);
+        sum+=nums[idx];
+        // we can pick nums[i] multiple times so i removed idx+1
+        combination(nums , idx , target, sum , list , ans);
         list.remove(list.size()-1);
+        sum-=nums[idx];
 
-        sum(arr , ans ,  list ,idx+1 ,target);
-
-        
+        // dont pick it
+        combination(nums, idx+1 , target, sum , list , ans);
     }
 }
 
