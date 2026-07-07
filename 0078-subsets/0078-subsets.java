@@ -2,22 +2,26 @@ class Solution {
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> ans= new ArrayList<>();
         List<Integer> list= new ArrayList<>();
-        subset(nums, 0 , list, ans);
+        subset(nums , 0 , list , ans);
         return ans;
     }
     void subset(int[] nums , int idx , List<Integer> list , List<List<Integer>> ans){
 
-        if(idx>=nums.length){
+        //base case
+        if(idx==nums.length){
             ans.add(new ArrayList<>(list));
             return ;
         }
-        //pick
+        if(idx>=nums.length){
+            return; 
+        }
+        // pick it 
         list.add(nums[idx]);
         subset(nums , idx+1 , list , ans);
         list.remove(list.size()-1);
 
-        // dont pick
-        subset(nums , idx+1 , list, ans);
+        // skip it 
+        subset(nums , idx+1 , list , ans);
     }
 }
 
