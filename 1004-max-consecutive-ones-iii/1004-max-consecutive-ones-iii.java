@@ -1,22 +1,23 @@
 class Solution {
     public int longestOnes(int[] nums, int k) {
-        int  i=0;
-        int count=0;
-        int maxlength=0;
-        for(int j=0;j<nums.length;j++){
-             if(nums[j]==0){
-                count++;
-             }
-
-             if(count>k){
-                if(nums[i]==0) count--;
+        int i=0;
+        int maxcount=0;
+        int zeroes=0;
+        for(int j=0;j<nums.length ; j++){
+            if(nums[j]==0){
+                zeroes++;
+            }
+            if(zeroes>k){
+                  if(nums[i]==0) zeroes--;// condition should be checked first before incrementing i because if ith number is 0 then i will move forwrd and count-- may not happen
                 i++;
-             }
-          if(count<=k){
-            maxlength=Math.max(maxlength , j-i+1);
-          }
+              
+            }
+            // only count maxlength when number of zeroes is less than k otherwise u will get wrong maxlength 
+            if(zeroes<=k){
+                maxcount=Math.max(maxcount , j-i+1);
+            }
         }
-        return maxlength;
+        return maxcount;
     }
 }
 
