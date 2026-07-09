@@ -1,48 +1,49 @@
 class Solution {
     public List<List<String>> solveNQueens(int n) {
-        boolean[] column = new boolean[n];
-        boolean[] ndiag= new boolean[2*n-1];
-        boolean[] rdiag = new boolean[2*n-1];
+        List<List<String>> ans = new ArrayList<>();
+        boolean[] cols = new boolean[n + 1];
+        boolean[] ndiag = new boolean[2 * n - 1];
+        boolean[] rdiag = new boolean[2 * n - 1];
         boolean[][] board = new boolean[n][n];
-
-        List<List<String>> ans= new ArrayList<>();
-        queen(column , 0 , rdiag , ndiag , board , ans);
+        queen(n, 0, board, ndiag, rdiag, cols,  ans);
         return ans;
-
     }
 
-    List<String> constructBoard(boolean[][] board){
-       List<String> list= new ArrayList<>();
-       for(int i=0; i< board.length; i++){
-        StringBuilder sb= new StringBuilder();
-        for(int j=0;j<board[0].length ; j++){
-            if(board[i][j]) sb.append("Q");
-            else sb.append(".");
+    List<String> constructboard(boolean[][] board) {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            StringBuilder sb = new StringBuilder();
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j]) {
+                    sb.append("Q");
+                } else {
+                    sb.append(".");
+                }
+            }
+            list.add(sb.toString());
         }
-        list.add(sb.toString());
-       }
-       return list;
+        return list;
     }
 
-    void queen(boolean[] column , int row , boolean[] rdiag , boolean[] ndiag , boolean[][] board , List<List<String>> ans){
-        if(row==board.length){
-            ans.add( new ArrayList<>(constructBoard(board)));
-            return ;
+    void queen(int n, int row, boolean[][] board, boolean[] ndiag, boolean[] rdiag, boolean[] cols,    List<List<String>> ans) {
+        //base case
+        if (row == board.length) {// base case should be board.length because the index should also be counted
+            ans.add(new ArrayList<>(constructboard(board)));
+            return;
         }
-
-        for(int col=0;col<board.length;col++){
-            if(column[col]==false && rdiag[row-col+ board.length-1]==false && ndiag[row+col]==false){
-                column[col]=true;
-                rdiag[row-col+board.length-1]=true;
-                ndiag[row+col]=true;
-                board[row][col]=true;
-
-                queen(column , row+1 , rdiag , ndiag , board, ans);
-
-                column[col]=false;
-                rdiag[row-col+board.length-1]=false;
-                ndiag[row+col]=false;
-                board[row][col]=false;
+        for (int col = 0; col < board.length; col++) {
+            if (cols[col] == false && ndiag[row + col] == false && rdiag[row - col + board.length - 1] == false) {
+                if (board[row][col] == false) {
+                    board[row][col] = true;
+                    cols[col] = true;
+                    ndiag[row + col] = true;
+                    rdiag[row - col + board.length - 1] = true;
+                    queen(n, row + 1, board, ndiag, rdiag, cols,  ans);
+                    board[row][col] = false;
+                    cols[col] = false;
+                    ndiag[row + col] = false;
+                    rdiag[row - col + board.length - 1] = false;
+                }
             }
         }
     }
