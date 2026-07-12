@@ -1,34 +1,32 @@
 class Solution {
     public void mergeSort(int arr[], int l, int r) {
         // code here
-        if(l>=r){
-            return ;
-        }
-    int mid= (l+r)/2;
-    mergeSort(arr , l, mid);
-    mergeSort(arr , mid+1 , r);
-    merge(arr, l, mid, r);
+        if(l>=r) return ;
+        int mid= (l+r)/2;
+        mergeSort(arr, l , mid);
+        mergeSort(arr , mid+1 , r);
+        merge(arr, l , mid, r);
     }
-    void merge(int [] arr , int low , int mid , int high){
-       int[] temp = new int[high - low + 1];
-        int left= low ; 
-        int right= mid+1;
+    void merge(int[] arr , int l , int mid , int r){
+        int[] temp= new int[r-l+1];
+        int low=l;
+        int high=mid+1;
         int idx=0;
-        while(left<=mid && right<=high){
-            if(arr[left]<=arr[right]){
-                temp[idx++]=arr[left++];
+        while(low<=mid && high<=r){
+            if(arr[low]>=arr[high]){
+                temp[idx++]= arr[high++];
             }else{
-                temp[idx++]=arr[right++];
+                temp[idx++]= arr[low++];
             }
         }
-        while(left<=mid){
-            temp[idx++]=arr[left++];
+        while(low<=mid){
+            temp[idx++]=arr[low++];
         }
-        while(right<=high){
-            temp[idx++]=arr[right++];
+        while(high<=r){
+            temp[idx++]= arr[high++];
         }
-        for(int i=low; i<=high;i++){
-            arr[i]=temp[i-low];
+        for(int i=l;i<=r;i++){
+            arr[i]= temp[i-l];
         }
     }
 }
