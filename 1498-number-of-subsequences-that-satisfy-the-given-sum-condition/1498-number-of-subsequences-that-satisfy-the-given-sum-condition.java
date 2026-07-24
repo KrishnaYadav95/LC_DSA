@@ -1,25 +1,26 @@
 class Solution {
     public int numSubseq(int[] nums, int target) {
+        //step1-> sort the array
         Arrays.sort(nums);
+        // precompute the power in pow array
+        int mod=1000000007;
+        int[] pow= new int[nums.length+1];
+        pow[0]=1;
+        for(int k=1;k<nums.length;k++){
+            pow[k]= (pow[k-1]*2) % mod;
+        }
+        // step3-> now find the number of subarray
         int i=0;
         int j=nums.length-1;
         int count=0;
-        int mod= 1000000007;
-        int[] pow= new int[nums.length];
-        pow[0]=1;
-        for(int k=1 ; k<nums.length;k++){
-            pow[k]= (pow[k-1] *2)%mod;
-        }
         while(i<=j){
             if(nums[i]+nums[j]<=target){
-                count= (count + pow[j-i]) % mod;
+                count= (count+pow[j-i]) % mod;
                 i++;
-            }else{
-                j--;
-            }
+            }else j--;
         }
         return count;
-    }
+    } 
 }
 
 // Synced seamlessly with LeetHub Pro
