@@ -1,21 +1,16 @@
+import java.util.Arrays;
+
 class Solution {
     public int maximumProduct(int[] nums) {
-        int n = nums.length;
-        Arrays.sort(nums);
-        int mult=1;
-       
-        for(int i=n-1;i>=n-3;i--){
-             mult = mult*nums[i];
-        }
-        for(int i=0;i<n;i++){
-             if(nums[0]*nums[1]*nums[n-1]>mult){
-            mult=nums[0]*nums[1]*nums[n-1];
-         }
-        }
 
-            
-        
-        return mult;
+        Arrays.sort(nums);
+
+        int n = nums.length;
+
+        int p1 = nums[n-1] * nums[n-2] * nums[n-3];
+        int p2 = nums[0] * nums[1] * nums[n-1];
+
+        return Math.max(p1, p2);
     }
 }
 
