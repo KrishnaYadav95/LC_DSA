@@ -7,7 +7,7 @@ class Solution {
             if(nums1[i]<=nums2[j]){
                 max=Math.max(max , j-i);
                 j++;
-            }else {
+            }else{
                 i++;
             }
         }
