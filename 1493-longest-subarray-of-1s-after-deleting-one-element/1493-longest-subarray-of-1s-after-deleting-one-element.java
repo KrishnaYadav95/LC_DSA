@@ -9,12 +9,12 @@ class Solution {
                 count++;
             }
             while(count>1){
-                if(nums[i]==0) count--;
+                if(nums[i]==0){
+                    count--;
+                }
                 i++;
             }
-           
-                max=Math.max(max, j-i);
-              
+            max=Math.max(max, j-i);
             j++;
         }
         return max;
