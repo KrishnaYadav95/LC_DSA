@@ -1,14 +1,14 @@
 class Solution {
     public long continuousSubarrays(int[] nums) {
-        TreeMap<Integer, Integer> freq = new TreeMap<>();
+        TreeMap<Integer, Integer> map = new TreeMap<>();
         int i=0;
         int j=0;
         long count=0;
         while(j<nums.length){
-            freq.merge(nums[j], 1, Integer::sum);
-            while(freq.lastKey()-freq.firstKey()>2){
-                freq.merge(nums[i], -1, Integer::sum);
-                if(freq.get(nums[i])==0) freq.remove(nums[i]);
+            map.merge(nums[j], 1, Integer::sum);
+            while(map.lastKey()-map.firstKey()>2){
+                map.merge(nums[i], -1 , Integer::sum);
+                if(map.get(nums[i])==0) map.remove(nums[i]);
                 i++;
             }
             count+=j-i+1;
