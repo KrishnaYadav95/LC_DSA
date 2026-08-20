@@ -1,28 +1,42 @@
 class Solution {
     public int takeCharacters(String s, int k) {
-        // Total counts
-        int[] count = new int[3];
-        for (char c : s.toCharArray()) {
-            count[c - 'a']++;
+
+        int a = 0, b = 0, c = 0;
+
+        for (char ch : s.toCharArray()) {
+            if (ch == 'a') a++;
+            else if (ch == 'b') b++;
+            else c++;
         }
-        
-        if (Math.min(Math.min(count[0], count[1]), count[2]) < k) {
-            return -1;
-        }
-        
-        // Sliding Window
-        int res = Integer.MAX_VALUE;
-        int l = 0;
-        for (int r = 0; r < s.length(); r++) {
-            count[s.charAt(r) - 'a']--;
-            
-            while (Math.min(Math.min(count[0], count[1]), count[2]) < k) {
-                count[s.charAt(l) - 'a']++;
-                l++;
+
+        if (a < k || b < k || c < k) return -1;
+
+        int left = 0;
+        int maxWindow = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+
+            char ch = s.charAt(right);
+
+            if (ch == 'a') a--;
+            else if (ch == 'b') b--;
+            else c--;
+
+            while (left <= right && (a < k || b < k || c < k)) {
+
+                char cur = s.charAt(left);
+
+                if (cur == 'a') a++;
+                else if (cur == 'b') b++;
+                else c++;
+
+                left++;
             }
-            res = Math.min(res, s.length() - (r - l + 1));
+
+            maxWindow = Math.max(maxWindow, right - left + 1);
         }
-        return res;
+
+        return s.length() - maxWindow;
     }
 }
 
