@@ -1,28 +1,18 @@
 class Solution {
     public int numberOfSubstrings(String s, int k) {
-        int left=0;
-        int right=0;
-        int count=0;
-        while(right<s.length()){
-            if(contain(s, left, right, k)){
-                count+=s.length()-right;
-                left++;
-            }else{
-                right++;
-            }
+        char [] freq= new char[26];
+        int i=0;
+        int ans=0;
+        for(int j=0; j<s.length(); j++){
+            freq[s.charAt(j)-'a']++;
+       
+        while(freq[s.charAt(j)-'a']>=k){
+            ans+=s.length()-j;
+            freq[s.charAt(i)-'a']--;
+            i++;
         }
-        return count;
-    }
-    boolean contain(String s , int left, int right  ,int k){
-       HashMap<Character,Integer> map = new HashMap<>();
-       for(int i=left;i<=right; i++){
-        map.put(s.charAt(i), map.getOrDefault(s.charAt(i),0)+1);
-       }
-       for(Map.Entry<Character, Integer> entry: map.entrySet()){
-        int val = entry.getValue();
-        if(val>=k) return true;
-       }
-       return false;
+        }
+        return ans;
     }
 }
 
