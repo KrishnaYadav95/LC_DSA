@@ -1,21 +1,18 @@
 class Solution {
-    int prevsum=0;
+    int sum=0;
     public TreeNode bstToGst(TreeNode root) {
         List<Integer> list= new ArrayList<>();
         inorder(root , list);
        // 0 1 2 3 4 5 6 7 8 
-       int sum=0;
-       for(int i=0;i<list.size();i++){
-        sum+=list.get(i);
-       }
-       return travel(root, list,  sum);
+       return travel(root, list);
     }
-    TreeNode travel(TreeNode root , List<Integer> list , int sum){
+    TreeNode travel(TreeNode root , List<Integer> list ){
         if(root==null) return null ;
-        travel(root.right , list , sum);
-       root.val += prevsum;
-      prevsum = root.val;
-        travel(root.left , list, sum);
+        travel(root.right , list );
+        sum += root.val;
+       root.val = sum;
+      
+        travel(root.left , list);
 
         return root;
     }
