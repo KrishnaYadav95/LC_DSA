@@ -1,29 +1,20 @@
 class Solution {
-    public int canBeTypedWords(String text, String brokenLetters) {
-        List<Character> list= new ArrayList<>();
-        for(int i=0; i<brokenLetters.length(); i++){
-            list.add(brokenLetters.charAt(i));
+    public int canBeTypedWords(String text, String broken) {
+        HashSet<Character> set = new HashSet<>();
+        for(char c : broken.toCharArray()){
+            set.add(c);
         }
-        int i=0;
         int count=0;
-        int og=0;
-        for(int j=0;j<=text.length(); j++){
-            if( j==text.length() || text.charAt(j)==' '){
-                String str= text.substring(i , j);
-                count=0;
-                for(int k=0;k<str.length(); k++){
-                    if(list.contains(str.charAt(k))){
-                        count++;
-                        break;
-                    }
+        String[] words= text.split(" ");
+        for(int i=0;i<words.length; i++){
+            for(int j=0;j<words[i].length(); j++){
+                if(set.contains(words[i].charAt(j))){
+                    count++;
+                    break;
                 }
-                if(count==0){
-                    og++;
-                }
-                i=j+1;
             }
         }
-        return og;
+        return words.length-count;
     }
 }
 
