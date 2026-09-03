@@ -1,18 +1,19 @@
 class Solution {
     public int uniquePaths(int m, int n) {
-        int[][] dp= new int[m+1][n+1];
-         for (int[] row : dp) {
-            Arrays.fill(row, -1);
-        }
-        return paths(m , n, 0 , 0 , dp);
+        int [][] dp = new int[m+1][n+1];
+        for(int [] row : dp) Arrays.fill(row , -1);
+       return paths(m , n, 0 , 0 , dp);
     }
-    int paths(int row , int col , int m , int n , int[][]dp){
-        if(m==row-1 || n==col-1){
-        return 1;
+    int paths(int m  ,int n , int i, int j , int[][] dp){
+        if(i==m-1 && j==n-1){
+           return 1;
         }
-        if(dp[m][n]!=-1) return dp[m][n];
-       dp[m][n]= paths(row , col , m+1 , n , dp) + paths(row , col, m, n+1 ,dp);
-       return dp[m][n];
+        if(i>=m || j>=n) return 0 ;
+
+        if(dp[i][j]!=-1) return dp[i][j];
+      dp[i][j]=  paths(m , n , i+1 , j , dp) + paths(m , n, i , j+1 , dp);
+
+       return dp[i][j];
     }
 }
 
