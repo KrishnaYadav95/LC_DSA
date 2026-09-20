@@ -1,24 +1,24 @@
 class Solution {
+   
     public int lengthOfLIS(int[] nums) {
-        int[][] dp = new int[nums.length][nums.length + 1];
-        for (int[] i : dp) Arrays.fill(i, -1);
-
-        return f(0, -1, nums, nums.length, dp);
+        int n= nums.length;
+        int[][] dp = new int[n+1][n+1];
+        for(int[] i: dp) Arrays.fill(i, -1);
+        return f(nums , 0 , -1 , dp);
     }
+     int f(int[] nums  , int idx , int previdx  , int[][] dp){
+        if(idx>=nums.length) return 0;
+        
+         if(dp[idx][previdx+1]!=-1) return dp[idx][previdx+1];
 
-    int f(int idx, int prev_idx, int[] arr, int n, int[][] dp) {
-        if (idx == n) return 0;
+         // skip 
+        int len=  0+f(nums , idx+ 1 , previdx , dp);
 
-        if (dp[idx][prev_idx + 1] != -1)
-            return dp[idx][prev_idx + 1];
-
-        int len = 0 + f(idx + 1, prev_idx, arr, n, dp);
-
-        if (prev_idx == -1 || arr[idx] > arr[prev_idx]) {
-            len = Math.max(len, 1 + f(idx + 1, idx, arr, n, dp));
+        if(previdx==-1 || nums[idx]>nums[previdx]){
+             len= Math.max( len , 1+f(nums , idx+1 , idx , dp));
         }
-
-        return dp[idx][prev_idx + 1] = len;
+        
+        return dp[idx][previdx+1]=len;
     }
 }
 
