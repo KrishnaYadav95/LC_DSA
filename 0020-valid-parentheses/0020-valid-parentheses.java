@@ -4,18 +4,18 @@ class Solution {
         for(int i=0;i<s.length();i++){
             char ch= s.charAt(i);
             if(ch==')'){
-                if(st.isEmpty() || st.peek()!='(') return false;   // CHANGED: mismatch -> false
-                st.pop();                                          // CHANGED: pop exactly one
-            }
-            else if(ch=='}'){                                      // CHANGED: else if
-                if(st.isEmpty() || st.peek()!='{') return false;
+                if( st.isEmpty() || st.peek()!='(') return false;
                 st.pop();
             }
-            else if(ch==']'){
-                if(st.isEmpty() || st.peek()!='[') return false;
-                st.pop();
+           else if(ch=='}'){
+                if( st.isEmpty() || st.peek()!='{') return false;
+              st.pop();
             }
-            else st.push(ch);                                      // CHANGED: push only openers
+           else if(ch==']'){
+                if( st.isEmpty() || st.peek()!='[') return false;
+               st.pop();
+            }else st.push(ch);
+           
         }
         return st.size()==0;
     }
