@@ -1,32 +1,31 @@
 class Solution {
-    public List<List<Integer>> combinationSum2(int[] nums, int target) {
-        // we need to sort the array first to handle duplicates
-        Arrays.sort(nums);
-        List<List<Integer>> ans= new ArrayList<>();
-        List<Integer> list= new ArrayList<>();
-        combination(nums , 0 , 0 , target, list , ans);
-        return ans;
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+       Arrays.sort(candidates); 
+       List<List<Integer>> ans= new ArrayList<>();
+       List<Integer> list = new ArrayList<>();
+       boolean [] flag= new boolean[candidates.length+1];
+       f(candidates , 0 , target , list, ans , 0 );
+       return ans;
     }
-    void combination(int[] nums , int idx, int sum , int target , List<Integer> list , List<List<Integer>> ans){
-        // Base case
-        if(sum==target){
+    void f(int[] nums , int idx , int target , List<Integer> list , List<List<Integer>> ans , int sum ){
+
+         if(sum==target){
             ans.add(new ArrayList<>(list));
-            return;
-        }
-        if(sum> target|| idx>=nums.length){
             return ;
         }
-        // case-1 pick it
+       
+        if(idx>=nums.length|| sum>target){
+            return ;
+        }
+       
         list.add(nums[idx]);
         sum+=nums[idx];
-        combination(nums, idx+1 , sum , target , list , ans);
+        f(nums , idx+1 , target , list , ans, sum);
         list.remove(list.size()-1);
         sum-=nums[idx];
-
-        while(idx<nums.length-1 && nums[idx]==nums[idx+1]) idx++;
-
-        //case-2 Dont pick it
-        combination(nums, idx+1 , sum , target , list , ans);
+      while(idx+1 < nums.length && nums[idx]==nums[idx+1]) idx++;
+        
+        f(nums , idx+1 , target , list, ans , sum);
     }
 }
 
