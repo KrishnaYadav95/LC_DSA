@@ -1,37 +1,36 @@
 class Solution {
-    public int shipWithinDays(int[] weights, int days) {
-        int low=0;
+    public int shipWithinDays(int[] nums, int days) {
+        // high will be the sum of all weights
         int high=0;
-        for(int i: weights){
-            high+=i;
-            low=Math.max(low, i);
-        }
-        
-      //  int ans=Integer.MAX_VALUE;
+        for(int i:nums) high+=i;
+        int low = 1;
+        for(int i : nums) low = Math.max(low, i);
+        int ans= Integer.MAX_VALUE;
         while(low<=high){
             int mid=low+(high-low)/2;
-            if(isPossible(mid , weights , days)){
+            if(canship(nums , days , mid)){
+                ans=Math.min(ans , mid);
                 high=mid-1;
-                //ans=Math.min(ans , mid);
             }else{
                 low=mid+1;
             }
         }
-        return low;
+        return ans==Integer.MAX_VALUE? -1: ans;
     }
-boolean isPossible(int mid , int[] nums , int days){ 
-    int requiredDays= 1;
-    int sum=0;
-    for(int i=0;i<nums.length;i++){
-
-        if(sum+nums[i]>mid){
-            requiredDays++;
-            sum=0;
+    boolean canship(int[] nums , int days , int mid){
+        int sum=0;
+        int countdays=1;
+        for(int i=0;i<nums.length;i++){
+             sum+=nums[i];
+            if(sum>mid){
+                countdays++;
+                sum=nums[i];
+            }
+            
+            if(countdays>days) return false;
         }
-        sum+=nums[i];
+        return true;
     }
-    return requiredDays<=days;
-}
 }
 
 // Synced seamlessly with LeetHub Pro
