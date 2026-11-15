@@ -1,40 +1,37 @@
 class Solution {
-    public int findPages(int[] arr, int k) {
+    public int findPages(int[] nums, int k) {
         // code here
-        if (k > arr.length) return -1;
-        int low=0;
-        for(int i: arr){
-            low=Math.max(low , i);
-        }
+        if(k>nums.length) return -1;
+        int low=nums[0];
         int high=0;
-        for(int i:arr){
-            high+=i;
+        for(int i=0;i<nums.length;i++){
+            high+=nums[i];
         }
         int ans=Integer.MAX_VALUE;
         while(low<=high){
             int mid=low+(high-low)/2;
-            if(isPossible(mid , arr , k)){
+            if(canAssign(nums , k , mid)){
                 high=mid-1;
-                ans=Math.min(ans, mid);
+                ans=Math.min(ans , mid);
             }else{
                 low=mid+1;
             }
         }
-        return low ;
+        return ans==Integer.MAX_VALUE? -1 : ans;
     }
-    boolean isPossible(int mid , int[] arr , int k){
+    boolean canAssign(int[] nums , int k , int mid){
         int sum=0;
-        int cntbook=1;
-        for(int i=0;i<arr.length;i++){
-
-            if(sum+arr[i]>mid){
-                cntbook++;
-                sum=arr[i];
-            }else{
-              sum+=arr[i];
+        int assign=1;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+            if(sum>mid){
+                assign++;
+                if(assign>k) return false;
+                sum=nums[i];
             }
+            
         }
-        return cntbook<=k;
+        return true;
     }
 }
 
