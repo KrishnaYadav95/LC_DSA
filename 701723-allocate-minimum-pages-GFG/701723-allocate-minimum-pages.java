@@ -2,7 +2,7 @@ class Solution {
     public int findPages(int[] nums, int k) {
         // code here
         if(k>nums.length) return -1;
-        int low=nums[0];
+        int low=1;
         int high=0;
         for(int i=0;i<nums.length;i++){
             high+=nums[i];
