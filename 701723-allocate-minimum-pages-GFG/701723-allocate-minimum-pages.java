@@ -20,7 +20,7 @@ class Solution {
         }
         return ans == Long.MAX_VALUE ? -1 : (int)ans;
     }
-    boolean canAssign(int[] nums , int k , int mid){
+    boolean canAssign(int[] nums , int k , long mid){
         long sum=0;
         int assign=1;
         for(int i=0;i<nums.length;i++){
