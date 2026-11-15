@@ -8,7 +8,7 @@ class Solution {
         for(int i=0;i<nums.length;i++){
             high+=nums[i];
         }
-        int ans=Integer.MAX_VALUE;
+        long ans=Long.MAX_VALUE;
         while(low<=high){
             int mid=low+(high-low)/2;
             if(canAssign(nums , k , mid)){
@@ -18,10 +18,10 @@ class Solution {
                 low=mid+1;
             }
         }
-        return ans==Integer.MAX_VALUE? -1 : ans;
+        return ans == Long.MAX_VALUE ? -1 : (int)ans;
     }
     boolean canAssign(int[] nums , int k , int mid){
-        int sum=0;
+        long sum=0;
         int assign=1;
         for(int i=0;i<nums.length;i++){
             sum+=nums[i];
