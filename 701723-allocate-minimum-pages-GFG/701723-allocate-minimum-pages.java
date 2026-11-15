@@ -2,15 +2,15 @@ class Solution {
     public int findPages(int[] nums, int k) {
         // code here
         if(k>nums.length) return -1;
-        int low=1;
+        long low=1;
         for(int i:nums) low=Math.max(low , i);
-        int high=0;
+        long high=0;
         for(int i=0;i<nums.length;i++){
             high+=nums[i];
         }
         long ans=Long.MAX_VALUE;
         while(low<=high){
-            int mid=low+(high-low)/2;
+            long mid=low+(high-low)/2;
             if(canAssign(nums , k , mid)){
                 high=mid-1;
                 ans=Math.min(ans , mid);
