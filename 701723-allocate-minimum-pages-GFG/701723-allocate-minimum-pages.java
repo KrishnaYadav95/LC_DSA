@@ -3,6 +3,7 @@ class Solution {
         // code here
         if(k>nums.length) return -1;
         int low=1;
+        for(int i:nums) low=Math.max(low , i);
         int high=0;
         for(int i=0;i<nums.length;i++){
             high+=nums[i];
