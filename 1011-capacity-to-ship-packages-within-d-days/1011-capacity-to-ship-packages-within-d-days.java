@@ -24,10 +24,11 @@ class Solution {
              sum+=nums[i];
             if(sum>mid){
                 countdays++;
+                 if(countdays>days) return false;
                 sum=nums[i];
             }
             
-            if(countdays>days) return false;
+           
         }
         return true;
     }
