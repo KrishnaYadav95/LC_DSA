@@ -1,21 +1,7 @@
 # [Aggressive Cows](https://www.geeksforgeeks.org/problems/aggressive-cows/1)
 ## Medium
-You are given an array with unique elements of stalls[], which denote the positions of stalls. You are also given an integer k which denotes the number of aggressive cows.&nbsp;The task is to assign stalls to k cows such that the minimum distance between any two of them is the maximum possible.
-Examples:
-Input: stalls[] = [1, 2, 4, 8, 9], k = 3
+Given an integer array arr[], which denotes the positions of stalls. All the positions are distinct. There are k aggressive cows.Assign the cows to the stalls such that the minimum distance between any two cows is maximized.Examples:Input: arr[] = [1, 2, 4, 8, 9], k = 3
 Output: 3
-Explanation: The first cow can be placed at stalls[0], the second cow can be placed at stalls[2] and 
-the third cow can be placed at stalls[3]. 
-The minimum distance between cows in this case is 3, which is the largest among all possible ways.
-
-Input: stalls[] = [10, 1, 2, 7, 5], k = 3
+Explanation: The first cow can be placed at arr[0], the second at arr[2], and the third at arr[3]. The minimum distance between any two cows is 3 (between arr[0] and arr[2]), which is the maximum possible among all valid arrangements.Input: arr[] = [10, 1, 2, 7, 5], k = 3
 Output: 4
-Explanation: The first cow can be placed at stalls[0],
-the second cow can be placed at stalls[1] and
-the third cow can be placed at stalls[4].
-The minimum distance between cows in this case is 4, which is the largest among all possible ways.
-Input: stalls[] = [2, 12, 11, 3, 26, 7], k = 5
-Output: 1
-Explanation: There are 6 stalls and only 5 cows, we try to place the cows such that the minimum distance between any two cows is as large as possible.
-The minimum distance between cows in this case is 1, which is the largest among all possible ways.
-Constraints:2 ≤ stalls.size() ≤ 1060 ≤ stalls[i] ≤ 1082 ≤ k ≤ stalls.size()
+Explanation: The first cow can be placed at arr[0], the second at arr[1], and the third at arr[4]. In this arrangement, the minimum distance between any two cows is 4 (between arr[1] and arr[4]), which is the maximum possible among all valid arrangements.
